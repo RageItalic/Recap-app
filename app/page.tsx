@@ -98,10 +98,8 @@ export default function Home() {
     //   </div>
     // </section>
 
-
-
     <section className="bg-white flex h-screen w-screen">
-      <div className="h-screen flex-initial w-5/12 bg-cover bg-[url(https://images.unsplash.com/photo-1687273705305-d8ff89951fdc?q=80&w=2454&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)]">
+      <div className="h-screen flex-initial w-5/12 bg-cover bg-no-repeat bg-[url(https://images.unsplash.com/photo-1687273705305-d8ff89951fdc?q=80&h=5000&w=2454&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)]">
         <h1 className="p-6 text-4xl text-white">Recap</h1>
       </div>
       <div className="h-screen flex-initial w-7/12">
