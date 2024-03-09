@@ -1,28 +1,56 @@
-'use server';
 import React from 'react';
 import Map from '@/components/ui/map';
-import SideNav from '@/components/ui/sidenav';
-import RecapCard from '@/components/ui/recapCard';
 import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+import { LocationsVisited, findCenterCoordsOfRecap, findOverallRecapRating, findTotalAmountSpent, getUserFeed } from '@/lib/utils';
+import Image from 'next/image';
+import LikeButton from '@/components/likeButton';
+import { handleLikeToggle } from '@/lib/actions';
+import RecapCard from '@/components/ui/recapCard';
 
-const MyMapPage: React.FC = async () => {
-    const first = { lat: 40.715894542723625, lng: -73.99163295995301 };
-    const second = { lat: 40.681964285254374, lng: -74.00037204646198 };
+export type Recap = {
+    username: string,
+    id: string,
+    user_id: string,
+    totallikes: number,
+    totalcomments: number,
+    recaptitle: string,
+    recapdescription: string,
+    json_agg: LocationsVisited[],
+    liked_by_user: false
+}
+
+
+export default async function Page() {
     const zoom = 12.5;
 
     const session = await auth();
-    const user = session?.user;
-    console.log(user);
+    const loggedInUser = session?.user;
+    if (!loggedInUser) {
+        redirect("/")
+    }
+
+    const loggedInUserFeed = await getUserFeed(loggedInUser.id!)
+
+    const locationsVisitedFromFirstRecap = loggedInUserFeed[0].json_agg
+    const center = findCenterCoordsOfRecap(locationsVisitedFromFirstRecap)
+    const locationCoordsFromFirstRecap = locationsVisitedFromFirstRecap.map((location: LocationsVisited) => ({
+        lat: Number(location.locationCoordinates.split(",")[0]),
+        lng: Number(location.locationCoordinates.split(",")[1])
+    }))
+
+
     return (
         <div className='flex flex-row h-screen'>
-            <div className='flex justify-center w-7/12'>
-                <RecapCard />
+            <div className='flex flex-col w-7/12 overflow-y-scroll'>
+                {loggedInUserFeed.map((recap) => (
+                    <RecapCard recap={recap as Recap} key={recap.id} loggedInUser={loggedInUser} />
+                ))}
             </div>
-            <div className='flex bg-emerald-500 w-5/12'>
-                <Map apiKey={process.env.GOOGLE_MAPS_API_KEY!} center={first} locations={[first, second]} zoom={zoom} />
+            <div className='flex w-5/12'>
+                <Map apiKey={process.env.GOOGLE_MAPS_API_KEY!} center={center} locations={locationCoordsFromFirstRecap} zoom={zoom} />
             </div>
         </div>
     );
 };
 
-export default MyMapPage;

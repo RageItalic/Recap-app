@@ -41,12 +41,11 @@ export default async function Home() {
               <DropdownMenuItem>Contact</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
         </nav>
         <section className="mt-12 pl-2 pr-2 ml-32 mr-9">
           <h1 className="text-4xl uppercase">Share authentic experiences of the places you&apos;ve visited with the world. Be it next door, or across the ocean.</h1>
           <div className="pt-4">
-            <Link href={"/login"}>
+            <Link href={"/api/auth/signin"}>
               <Button variant={"customGreen"}>Get Started</Button>
             </Link>
           </div>
