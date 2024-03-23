@@ -43,9 +43,12 @@ export default async function Page() {
     return (
         <div className='flex flex-row h-screen'>
             <div className='flex flex-col w-7/12 overflow-y-scroll'>
-                {loggedInUserFeed.map((recap) => (
-                    <RecapCard recap={recap as Recap} key={recap.id} loggedInUser={loggedInUser} />
-                ))}
+                {loggedInUserFeed.length > 0
+                    ? loggedInUserFeed.map((recap) => (
+                        <RecapCard recap={recap as Recap} key={recap.id} loggedInUser={loggedInUser} />
+                    ))
+                    : <p>Your feed is empty! Try following some people first! TAKSH WE FORGOT ABOUT BUILDING THE FUNCTIONALITY TO ALLOW PEOPLE TO FOLLOW EACH OTHER!</p>
+                }
             </div>
             <div className='flex w-5/12'>
                 <Map apiKey={process.env.GOOGLE_MAPS_API_KEY!} center={center} locations={locationCoordsFromFirstRecap} zoom={zoom} />
