@@ -17,7 +17,7 @@ export type Recap = {
     recaptitle: string,
     recapdescription: string,
     json_agg: LocationsVisited[],
-    liked_by_user: false
+    liked_by_user: boolean
 }
 
 

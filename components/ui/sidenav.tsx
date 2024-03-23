@@ -159,7 +159,7 @@ export default async function SideNav() {
                                     </svg>
 
                                     <span
-                                        className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible"
+                                        className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white z-40 group-hover:visible"
                                     >
                                         Profile
                                     </span>
